@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Space Explorer 🚀</title>
+
+  <style>
+    /* =========================
+       RESET
+    ========================= */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050816;
+      color: white;
+    }
+
+
+    /* =========================
+       NAVIGATION
+    ========================= */
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+
+      padding: 20px 8%;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      background: rgba(5, 8, 22, 0.85);
+      backdrop-filter: blur(10px);
+
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #a78bfa;
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      min-height: 100vh;
+
+      position: relative;
+      overflow: hidden;
+
+      display: flex;
+      align-items: center;
+
+      padding: 100px 10%;
+
+      background:
+        radial-gradient(
+          circle at 75% 50%,
+          #312e81,
+          transparent 30%
+        ),
+        linear-gradient(
+          135deg,
+          #050816,
+          #111936
+        );
+    }
+
+    .hero-content {
+      max-width: 650px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .small-title {
+      color: #a78bfa;
+      letter-spacing: 4px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(55px, 8vw, 100px);
+      line-height: 0.95;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 span {
+      color: #8b5cf6;
+    }
+
+    .hero-description {
+      color: #cbd5e1;
+      font-size: 18px;
+      line-height: 1.7;
+      max-width: 550px;
+      margin-bottom: 35px;
+    }
+
+    .hero button {
+      border: none;
+
+      background: #8b5cf6;
+      color: white;
+
+      padding: 16px 30px;
+
+      border-radius: 30px;
+
+      font-size: 16px;
+      font-weight: bold;
+
+      cursor: pointer;
+
+      transition: 0.3s;
+    }
+
+    .hero button:hover {
+      background: #7c3aed;
+      transform: translateY(-3px);
+    }
+
+
+    /* =========================
+       STARS
+    ========================= */
+
+    .stars {
+      position: absolute;
+
+      width: 3px;
+      height: 3px;
+
+      background: white;
+
+      box-shadow:
+        100px 100px white,
+        200px 300px white,
+        350px 150px white,
+        500px 400px white,
+        700px 200px white,
+        900px 100px white,
+        1100px 350px white,
+        1200px 150px white,
+        300px 500px white,
+        800px 500px white,
+        1000px 600px white;
+
+      opacity: 0.6;
+    }
+
+
+    /* =========================
+       BIG PLANET
+    ========================= */
+
+    .big-planet {
+      position: absolute;
+
+      width: 450px;
+      height: 450px;
+
+      right: 5%;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle at 30% 30%,
+          #fbbf24,
+          #f97316 35%,
+          #7c2d12 70%,
+          #111827
+        );
+
+      box-shadow:
+        0 0 100px rgba(249, 115, 22, 0.4);
+
+      animation: float 5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(-50%);
+      }
+
+      50% {
+        transform: translateY(-55%);
+      }
+
+    }
+
+
+    /* =========================
+       PLANETS
+    ========================= */
+
+    .planets-section {
+      padding: 120px 8%;
+
+      text-align: center;
+
+      background: #080c20;
+    }
+
+    .section-label {
+      color: #a78bfa;
+
+      letter-spacing: 4px;
+
+      font-size: 13px;
+
+      font-weight: bold;
+
+      margin-bottom: 20px;
+    }
+
+    .planets-section h2,
+    .about h2 {
+      font-size: 55px;
+
+      margin-bottom: 60px;
+    }
+
+    .planet-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 25px;
+    }
+
+    .planet-card {
+      background: #111936;
+
+      padding: 30px 20px;
+
+      border-radius: 20px;
+
+      border: 1px solid #1e293b;
+
+      cursor: pointer;
+
+      transition: 0.3s;
+    }
+
+    .planet-card:hover {
+      transform: translateY(-10px);
+
+      border-color: #8b5cf6;
+
+      box-shadow:
+        0 20px 50px
+        rgba(139, 92, 246, 0.2);
+    }
+
+    .planet-card h3 {
+      font-size: 24px;
+
+      margin: 20px 0 10px;
+    }
+
+    .planet-card p {
+      color: #94a3b8;
+
+      line-height: 1.5;
+    }
+
+
+    /* =========================
+       PLANET DESIGNS
+    ========================= */
+
+    .planet {
+      width: 150px;
+      height: 150px;
+
+      border-radius: 50%;
+
+      margin: auto;
+
+      transition: 0.5s;
+    }
+
+    .planet-card:hover .planet {
+      transform:
+        scale(1.1)
+        rotate(10deg);
+    }
+
+    .mercury {
+      background:
+        radial-gradient(
+          circle at 35% 30%,
+          #ddd,
+          #777 50%,
+          #292929
+        );
+    }
+
+    .venus {
+      background:
+        radial-gradient(
+          circle at 35% 30%,
+          #fde68a,
+          #d97706 55%,
+          #78350f
+        );
+    }
+
+    .earth {
+      background:
+        radial-gradient(
+          circle at 30% 30%,
+          #60a5fa,
+          #2563eb 40%,
+          #166534 42%,
+          #052e16
+        );
+    }
+
+    .mars {
+      background:
+        radial-gradient(
+          circle at 35% 30%,
+          #fb923c,
+          #dc2626 55%,
+          #7f1d1d
+        );
+    }
+
+
+    /* =========================
+       ABOUT
+    ========================= */
+
+    .about {
+      padding: 120px 10%;
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 80px;
+
+      align-items: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          #111936,
+          #050816
+        );
+    }
+
+    .about h2 {
+      margin-bottom: 0;
+    }
+
+    .about-text {
+      color: #94a3b8;
+
+      font-size: 20px;
+
+      line-height: 1.9;
+    }
+
+
+    /* =========================
+       MODAL
+    ========================= */
+
+    .modal {
+      position: fixed;
+
+      inset: 0;
+
+      background:
+        rgba(0, 0, 0, 0.8);
+
+      display: none;
+
+      justify-content: center;
+      align-items: center;
+
+      z-index: 200;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 90%;
+      max-width: 500px;
+
+      padding: 40px;
+
+      text-align: center;
+
+      background: #111936;
+
+      border-radius: 20px;
+
+      position: relative;
+
+      animation: popup 0.3s ease;
+    }
+
+    @keyframes popup {
+
+      from {
+        transform: scale(0.7);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+    }
+
+    .close {
+      position: absolute;
+
+      top: 15px;
+      right: 20px;
+
+      border: none;
+
+      background: none;
+
+      color: white;
+
+      font-size: 30px;
+
+      cursor: pointer;
+    }
+
+    #modalPlanet {
+      width: 120px;
+      height: 120px;
+
+      border-radius: 50%;
+
+      margin: 10px auto 25px;
+    }
+
+    .modal-content h2 {
+      font-size: 35px;
+
+      margin-bottom: 15px;
+    }
+
+    .modal-content p {
+      color: #94a3b8;
+
+      line-height: 1.7;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      padding: 30px;
+
+      text-align: center;
+
+      color: #64748b;
+
+      border-top: 1px solid #1e293b;
+
+      background: #050816;
+    }
+
+    footer p:first-child {
+      color: white;
+
+      margin-bottom: 8px;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 900px) {
+
+      .big-planet {
+        width: 300px;
+        height: 300px;
+
+        opacity: 0.4;
+
+        right: -80px;
+      }
+
+      .planet-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .about {
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+      }
+
+    }
+
+
+    @media (max-width: 600px) {
+
+      nav {
+        padding: 18px 5%;
+      }
+
+      nav ul {
+        gap: 12px;
+
+        font-size: 14px;
+      }
+
+      .hero {
+        padding: 100px 7%;
+      }
+
+      .hero h1 {
+        font-size: 55px;
+      }
+
+      .planet-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .planets-section h2,
+      .about h2 {
+        font-size: 40px;
+      }
+
+      .big-planet {
+        width: 250px;
+        height: 250px;
+
+        right: -100px;
+      }
+
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <!-- =========================
+       NAVIGATION
+  ========================= -->
+
+  <nav>
+
+    <div class="logo">
+      🚀 SpaceXplorer
+    </div>
+
+    <ul>
+      <li>
+        <a href="#home">Home</a>
+      </li>
+
+      <li>
+        <a href="#planets">Planets</a>
+      </li>
+
+      <li>
+        <a href="#about">About</a>
+      </li>
+    </ul>
+
+  </nav>
+
+
+  <!-- =========================
+       HERO
+  ========================= -->
+
+  <section class="hero" id="home">
+
+    <div class="stars"></div>
+
+    <div class="hero-content">
+
+      <p class="small-title">
+        WELCOME, EXPLORER
+      </p>
+
+      <h1>
+        Explore The
+        <br>
+        <span>Universe</span>
+      </h1>
+
+      <p class="hero-description">
+        Discover planets, galaxies, stars and the
+        incredible mysteries hidden beyond our world.
+      </p>
+
+      <button onclick="scrollToPlanets()">
+        Start Exploring 🚀
+      </button>
+
+    </div>
+
+    <div class="big-planet"></div>
+
+  </section>
+
+
+  <!-- =========================
+       PLANETS
+  ========================= -->
+
+  <section
+    class="planets-section"
+    id="planets"
+  >
+
+    <p class="section-label">
+      OUR SOLAR SYSTEM
+    </p>
+
+    <h2>
+      Choose a Planet
+    </h2>
+
+    <div class="planet-grid">
+
+
+      <!-- Mercury -->
+
+      <div
+        class="planet-card"
+        onclick="showPlanet('Mercury')"
+      >
+
+        <div class="planet mercury"></div>
+
+        <h3>Mercury</h3>
+
+        <p>
+          The closest planet to the Sun.
+        </p>
+
+      </div>
+
+
+      <!-- Venus -->
+
+      <div
+        class="planet-card"
+        onclick="showPlanet('Venus')"
+      >
+
+        <div class="planet venus"></div>
+
+        <h3>Venus</h3>
+
+        <p>
+          A world covered in thick clouds.
+        </p>
+
+      </div>
+
+
+      <!-- Earth -->
+
+      <div
+        class="planet-card"
+        onclick="showPlanet('Earth')"
+      >
+
+        <div class="planet earth"></div>
+
+        <h3>Earth</h3>
+
+        <p>
+          Our beautiful home planet.
+        </p>
+
+      </div>
+
+
+      <!-- Mars -->
+
+      <div
+        class="planet-card"
+        onclick="showPlanet('Mars')"
+      >
+
+        <div class="planet mars"></div>
+
+        <h3>Mars</h3>
+
+        <p>
+          The mysterious red planet.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       ABOUT
+  ========================= -->
+
+  <section class="about" id="about">
+
+    <div>
+
+      <p class="section-label">
+        ABOUT SPACE
+      </p>
+
+      <h2>
+        The universe is
+        <br>
+        waiting for you.
+      </h2>
+
+    </div>
+
+    <p class="about-text">
+      Space is vast, mysterious and full of
+      incredible objects. From planets and moons
+      to stars and distant galaxies, there is
+      always something new to discover.
+    </p>
+
+  </section>
+
+
+  <!-- =========================
+       MODAL
+  ========================= -->
+
+  <div
+    class="modal"
+    id="planetModal"
+  >
+
+    <div class="modal-content">
+
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ×
+      </button>
+
+      <div id="modalPlanet"></div>
+
+      <h2 id="modalTitle">
+        Planet
+      </h2>
+
+      <p id="modalDescription">
+        Planet information.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
+  <footer>
+
+    <p>
+      🚀 SpaceXplorer © 2026
+    </p>
+
+    <p>
+      Made with HTML, CSS & JavaScript
+    </p>
+
+  </footer>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
+
+  <script>
+
+    // Scroll to planets
+    function scrollToPlanets() {
+
+      document
+        .getElementById("planets")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    // Planet information
+    const planets = {
+
+      Mercury: {
+        className: "mercury",
+        description:
+          "Mercury is the smallest planet in our solar system and the closest planet to the Sun."
+      },
+
+      Venus: {
+        className: "venus",
+        description:
+          "Venus is the second planet from the Sun and has an extremely hot surface covered by a thick atmosphere."
+      },
+
+      Earth: {
+        className: "earth",
+        description:
+          "Earth is our home planet and the only world currently known to support life."
+      },
+
+      Mars: {
+        className: "mars",
+        description:
+          "Mars is known as the Red Planet because iron minerals in its soil give the surface its reddish color."
+      }
+
+    };
+
+
+    // Show planet information
+    function showPlanet(planetName) {
+
+      const planet =
+        planets[planetName];
+
+      const modal =
+        document.getElementById(
+          "planetModal"
+        );
+
+      const modalPlanet =
+        document.getElementById(
+          "modalPlanet"
+        );
+
+      const modalTitle =
+        document.getElementById(
+          "modalTitle"
+        );
+
+      const modalDescription =
+        document.getElementById(
+          "modalDescription"
+        );
+
+
+      modalPlanet.className =
+        "planet " +
+        planet.className;
+
+
+      modalTitle.textContent =
+        planetName;
+
+
+      modalDescription.textContent =
+        planet.description;
+
+
+      modal.classList.add("active");
+
+    }
+
+
+    // Close modal
+    function closeModal() {
+
+      document
+        .getElementById("planetModal")
+        .classList.remove("active");
+
+    }
+
+
+    // Close modal by clicking outside
+    document
+      .getElementById("planetModal")
+      .addEventListener(
+        "click",
+        function(event) {
+
+          if (
+            event.target === this
+          ) {
+
+            closeModal();
+
+          }
+
+        }
+      );
+
+
+    // Close modal with Escape
+    document.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          closeModal();
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
